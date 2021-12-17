@@ -4,7 +4,6 @@
 # lõpetanud Annaliis Täheväli
 
 from tkinter import *
-import tkinter
 from tkinter import ttk
 from tkinter import messagebox
 from algoritmid import *
@@ -13,15 +12,28 @@ from algoritmid import *
 def puhasta():
     tahvel.delete('all')
 
+def color_picker(jarjend, nr):
+    colors = ["green", "yellow", "orange", "red", "#8CD1F1", "#AFE88C", "#F8DAE3", "cyan", "#F1ED8C", "#C18FDE", "#B2A9F3", "#F955B3", "#9FA5A1"]
+    color = ''
+    
+    if jarjend[nr][0] == ' ':
+        color = colors[-1]
+    else:
+        color = colors[int(jarjend[nr][0].replace('P',''))]
+
+    return color
+
+
 # joonistab tahvlile protsesse kujutavad ristkülikud numbrite ja protsesside nimedega
 def joonista(jarjend):
+    print(jarjend)
     puhasta()
     eelmise_loppx = 20
     kaugus = 0
     for i in range(len(jarjend)):
         protsess = jarjend[i][0]
         kestus = jarjend[i][1]
-        kujund = tahvel.create_rectangle(eelmise_loppx, 60, eelmise_loppx + kestus * 16,100, fill="green")
+        kujund = tahvel.create_rectangle(eelmise_loppx, 60, eelmise_loppx + kestus * 16,100, fill=color_picker(jarjend,i))
         keskpaik = eelmise_loppx+kestus * 8
         protsessi_id = tahvel.create_text(keskpaik, 80, text=protsess)
         m = tahvel.create_text(eelmise_loppx, 110, text=str(kaugus))
@@ -65,7 +77,7 @@ def massiiviTeavitaja(massiiv):
     for jupp in massiiv:
         text.insert(INSERT, str(jupp) + "\n")
 
-def algoritmivalija(jarjend, algoritm):
+def kasuvalija(jarjend, algoritm):
     if algoritm == "FCFS":
         return FCFS(jarjend)
     elif algoritm == "SJF":
@@ -73,36 +85,25 @@ def algoritmivalija(jarjend, algoritm):
     elif algoritm == "RR3":
         return RR3(jarjend)
     elif algoritm == "FCFS2":
-        return FCFS2()
-
-#kasutaja meetod
-def järjendinummerdaja(järjend):
-    i = 1
-    indeks = 0
-    while indeks < len(järjend):
-        järjend[indeks].append(i)
-        i+=1
-        indeks+=1
-    return järjend
-
+        return FCFS2(jarjend)
 
 def jooksuta_algoritmi(algoritm):
     jarjend = massiiviMeister()
     massiiviTeavitaja(jarjend)
-    (valjund, ooteaeg) = algoritmivalija(jarjend, algoritm)
+    (valjund, ooteaeg) = kasuvalija(jarjend, algoritm)
     joonista(valjund)
     keskm_oot = tahvel.create_text(80, 40, text="Keskmine ooteaeg:  " + str(ooteaeg))
 
-predef1 = "0,5;6,9;6,5;15,10"
-predef2 = "0,2;0,4;12,4;15,5;21,10"
-predef3 = "5,6;6,9;11,3;12,7"
+predef1 = "0,7;1,5;2,3;3,1;4,2;5,1"
+predef2 = "0,2;1,4;12,4;15,5;21,10"
+predef3 = "0,4;1,5;2,2;3,1;4,6;6,3"
 
 
 # GUI
 raam = Tk()
 raam.title("Planeerimisalgoritmid")
 raam.resizable(False, False)
-raam.geometry("800x400")
+raam.geometry("830x400")
 
 var = IntVar()
 var.set(1)
@@ -132,7 +133,7 @@ silt_tahvel.place(x=450, y=10)
 kasutaja_jarjend = ttk.Entry(raam)
 kasutaja_jarjend.place(x=120, y=130, height=25, width=240)
 
-tahvel = Canvas(raam, width=800, height=180, background="white")
+tahvel = Canvas(raam, width=830, height=180, background="white")
 tahvel.place(x=0, y=220)
 
 FCFS_nupp = ttk.Button(raam, text="FCFS", command = lambda : jooksuta_algoritmi("FCFS"))
