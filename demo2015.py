@@ -13,7 +13,7 @@ def puhasta():
     tahvel.delete('all')
 
 def color_picker(jarjend, nr):
-    colors = ["green", "yellow", "orange", "red", "#8CD1F1", "#AFE88C", "#F8DAE3", "cyan", "#F1ED8C", "#C18FDE", "#B2A9F3", "#F955B3", "#9FA5A1"]
+    colors = ["green", "yellow", "orange", "red", "#8CD1F1", "#AFE88C", "#F8DAE3", "cyan", "#F1ED8C", "#C18FDE", "#B2A9F3", "#F955B3", "white"]
     color = ''
     
     if jarjend[nr][0] == ' ':
@@ -143,10 +143,10 @@ SJF_nupp = ttk.Button(raam, text="SJF", command = lambda : jooksuta_algoritmi("S
 SJF_nupp.place(x=100, y=190,height=25, width=80)
 
 RR3_nupp = ttk.Button(raam, text="RR3", command = lambda : jooksuta_algoritmi("RR3"))
-RR3_nupp.place(x=280, y=190,height=25, width=80)
+RR3_nupp.place(x=190, y=190,height=25, width=80)
 
-FCFS2_nupp = ttk.Button(raam, text="FCFS 2x", command = lambda : jooksuta_algoritmi("FCFS2"))
-FCFS2_nupp.place(x=190, y=190,height=25, width=80)
+FCFS2_nupp = ttk.Button(raam, text="2X FCFS", command = lambda : jooksuta_algoritmi("FCFS2"))
+FCFS2_nupp.place(x=280, y=190,height=25, width=80)
 
 puhasta_nupp = ttk.Button(raam, text="Puhasta väljund", command = lambda : puhasta() )
 puhasta_nupp.place(x=500, y=190,height=25, width=130)
